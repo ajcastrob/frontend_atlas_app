@@ -1,4 +1,14 @@
 ---
+interface Props {
+  actionText?: string
+  actionHref?: string
+}
+
+const isGameRoute = Astro.url.pathname.startsWith("/game")
+const {
+  actionText = isGameRoute ? "Cerrar sesión" : "Iniciar sesión",
+  actionHref = isGameRoute ? "/" : "/game",
+} = Astro.props
 ---
 
 <style>
@@ -78,8 +88,8 @@
 <nav class="header__nav" id="site-nav" data-header-nav aria-label="Principal">
   <ul class="header__menu">
     <li>
-      <a class="header__link" href="#">
-        Iniciar sesión
+      <a class="header__link" href={actionHref}>
+        {actionText}
       </a>
     </li>
   </ul>

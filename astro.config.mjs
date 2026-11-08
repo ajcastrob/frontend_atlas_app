@@ -1,9 +1,11 @@
 // @ts-check
 import { defineConfig, fontProviders } from "astro/config";
+import react from "@astrojs/react";
 import supersvgPlugin from "vite-plugin-supersvg";
 
 // https://astro.build/config
 export default defineConfig({
+  integrations: [react()],
   vite: {
     plugins: [supersvgPlugin()],
   },

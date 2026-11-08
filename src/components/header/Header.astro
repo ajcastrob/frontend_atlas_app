@@ -6,11 +6,15 @@ import HeaderPerfil from "@/components/header/HeaderPerfil.astro"
 interface Props {
   linkLogo?: string
   nameBrand?: string
+  actionText?: string
+  actionHref?: string
 }
 
 const {
   linkLogo = "/assets/icons/logo.svg#atlas",
   nameBrand = "Atlas",
+  actionText,
+  actionHref,
 } = Astro.props
 ---
 
@@ -26,7 +30,10 @@ const {
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid color-mix(in srgb, var(--color-border) 40%, transparent);
   box-shadow: var(--shadow-header);
-  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .header__container {
@@ -71,7 +78,7 @@ const {
   <div class="header__container">
     <HeaderBrand linkLogo={linkLogo} nameBrand={nameBrand} />
     <div class="header__actions">
-      <HeaderNav />
+      <HeaderNav actionText={actionText} actionHref={actionHref} />
       <HeaderPerfil />
     </div>
   </div>
