@@ -61,6 +61,22 @@ export async function login(username, password) {
   return data;
 }
 
+export async function register(userData) {
+  const response = await fetch(`${API_BASE_URL}/users/users/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(userData),
+  });
+  const data = await readResponse(response);
+
+  if (!response.ok) {
+    const errors = data.errors ? Object.values(data.errors).flat().join(" ") : data.message;
+    throw new Error(errors || "No fue posible crear la cuenta.");
+  }
+
+  return data;
+}
+
 export async function logout() {
   const user = getUser();
   const token = getToken();

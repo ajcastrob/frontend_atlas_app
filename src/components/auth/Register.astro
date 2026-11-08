@@ -1,0 +1,236 @@
+---
+---
+
+<style>
+  .register {
+    display: grid;
+    min-height: calc(100svh - var(--header-height));
+    place-items: center;
+    padding: clamp(32px, 8vw, 80px) var(--page-gutter);
+  }
+
+  .register__plate {
+    width: min(100%, 560px);
+    padding: clamp(28px, 5vw, 52px);
+    border: 1px solid var(--color-ink);
+    background: var(--color-surface);
+    box-shadow: 8px 8px 0 var(--color-border);
+  }
+
+  .register__kicker,
+  .register__meta,
+  .register__error,
+  .register__submit {
+    font-family: var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .register__kicker {
+    margin: 0 0 22px;
+    color: var(--color-accent);
+    font-size: 10px;
+    font-weight: 600;
+  }
+
+  .register__title {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: clamp(42px, 8vw, 68px);
+    font-weight: 400;
+    letter-spacing: -0.045em;
+    line-height: 0.95;
+  }
+
+  .register__description {
+    max-width: 38ch;
+    margin: 22px 0 34px;
+    color: var(--color-ink-muted);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .register__form {
+    display: grid;
+    gap: 18px;
+  }
+
+  .register__fields {
+    display: grid;
+    gap: 18px;
+  }
+
+  .register__field {
+    display: grid;
+    gap: 8px;
+  }
+
+  .register__label,
+  .register__meta {
+    color: var(--color-ink-muted);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .register__input {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font: 400 16px/1.2 var(--font-sans);
+  }
+
+  .register__input:focus {
+    border-color: var(--color-accent);
+    outline: 2px solid color-mix(in srgb, var(--color-accent) 25%, transparent);
+    outline-offset: 2px;
+  }
+
+  .register__submit {
+    min-height: 50px;
+    margin-top: 6px;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: var(--color-ink);
+    color: #fff;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .register__submit:hover:not(:disabled) {
+    background: var(--color-brand);
+    transform: translateY(-2px);
+  }
+
+  .register__submit:disabled {
+    cursor: wait;
+    opacity: 0.6;
+  }
+
+  .register__error {
+    min-height: 16px;
+    margin: 0;
+    color: #991b1b;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .register__meta {
+    margin: 28px 0 0;
+    color: var(--color-ink-muted);
+    font-size: 9px;
+  }
+
+  .register__meta a {
+    color: inherit;
+    text-underline-offset: 3px;
+  }
+
+  @media (min-width: 640px) {
+    .register__fields {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>
+
+<main class="register" aria-labelledby="register-title">
+  <section class="register__plate">
+    <p class="register__kicker">Atlas / Nueva expedición</p>
+    <h1 class="register__title" id="register-title">Crear cuenta</h1>
+    <p class="register__description">
+      Registra tu ficha de expedicionario y comienza un recorrido de diez preguntas por el atlas.
+    </p>
+
+    <form class="register__form" data-register-form novalidate>
+      <div class="register__fields">
+        <label class="register__field">
+          <span class="register__label">Usuario</span>
+          <input class="register__input" name="username" type="text" autocomplete="username" required />
+        </label>
+
+        <label class="register__field">
+          <span class="register__label">Correo</span>
+          <input class="register__input" name="email" type="email" autocomplete="email" required />
+        </label>
+
+        <label class="register__field">
+          <span class="register__label">Nombres</span>
+          <input class="register__input" name="name" type="text" autocomplete="given-name" required />
+        </label>
+
+        <label class="register__field">
+          <span class="register__label">Apellidos</span>
+          <input class="register__input" name="last_name" type="text" autocomplete="family-name" required />
+        </label>
+
+        <label class="register__field">
+          <span class="register__label">Contraseña</span>
+          <input class="register__input" name="password" type="password" minlength="8" autocomplete="new-password" required />
+        </label>
+
+        <label class="register__field">
+          <span class="register__label">Repetir contraseña</span>
+          <input class="register__input" name="password_confirmation" type="password" minlength="8" autocomplete="new-password" required />
+        </label>
+      </div>
+
+      <p class="register__error" data-register-error role="alert" aria-live="polite"></p>
+      <button class="register__submit" type="submit" data-register-submit>Crear expediente</button>
+    </form>
+
+    <p class="register__meta">¿Ya tienes cuenta? <a href="/login">Inicia sesión</a></p>
+  </section>
+</main>
+
+<script>
+  import { register } from "../../lib/auth.js";
+
+  const form = document.querySelector("[data-register-form]");
+  const errorMessage = document.querySelector("[data-register-error]");
+  const submitButton = document.querySelector("[data-register-submit]");
+
+  if (sessionStorage.getItem("atlas.accessToken")) {
+    window.location.replace("/game");
+  }
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    errorMessage.textContent = "";
+
+    const formData = new FormData(form);
+    const password = formData.get("password");
+    const confirmation = formData.get("password_confirmation");
+
+    if (password !== confirmation) {
+      errorMessage.textContent = "Las contraseñas no coinciden.";
+      return;
+    }
+
+    submitButton.disabled = true;
+    submitButton.textContent = "Registrando...";
+
+    try {
+      await register({
+        username: formData.get("username"),
+        email: formData.get("email"),
+        name: formData.get("name"),
+        last_name: formData.get("last_name"),
+        password,
+      });
+      window.location.replace("/login?registered=1");
+    } catch (error) {
+      errorMessage.textContent = error.message || "No fue posible crear la cuenta.";
+      submitButton.disabled = false;
+      submitButton.textContent = "Crear expediente";
+    }
+  });
+</script>
