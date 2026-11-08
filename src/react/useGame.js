@@ -1,5 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { fetchCountries, getResultCopy, makeQuestions, TOTAL_ROUNDS } from "../lib/game.js";
+import {
+  AuthError,
+  fetchCountries,
+  getResultCopy,
+  makeQuestions,
+  TOTAL_ROUNDS,
+} from "../lib/game.js";
 
 const ANSWER_KEYS = ["A", "B", "C", "D"];
 
@@ -48,7 +54,12 @@ export function useGame() {
         setQuestions(makeQuestions(data));
         setError("");
       })
-      .catch(() => {
+      .catch((loadError) => {
+        if (loadError instanceof AuthError) {
+          window.location.replace("/login?next=/game");
+          return;
+        }
+
         if (active) setError("No fue posible cargar el archivo cartográfico.");
       })
       .finally(() => {

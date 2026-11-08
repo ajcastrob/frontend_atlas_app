@@ -7,7 +7,7 @@ interface Props {
 const isGameRoute = Astro.url.pathname.startsWith("/game")
 const {
   actionText = isGameRoute ? "Cerrar sesión" : "Iniciar sesión",
-  actionHref = isGameRoute ? "/" : "/game",
+  actionHref = isGameRoute ? "#" : "/login",
 } = Astro.props
 ---
 
@@ -88,9 +88,43 @@ const {
 <nav class="header__nav" id="site-nav" data-header-nav aria-label="Principal">
   <ul class="header__menu">
     <li>
-      <a class="header__link" href={actionHref}>
+      <a
+        class="header__link"
+        href={actionHref}
+        data-auth-action={isGameRoute ? "logout" : "login"}
+      >
         {actionText}
       </a>
     </li>
   </ul>
 </nav>
+
+<script>
+  import { clearAuth, getToken, logout } from "../../lib/auth.js";
+
+  const action = document.querySelector("[data-auth-action]");
+  if (action) {
+    const authenticated = Boolean(getToken());
+    const shouldLogout = action.dataset.authAction === "logout" && authenticated;
+
+    if (!shouldLogout) {
+      action.dataset.authAction = authenticated ? "logout" : "login";
+      action.textContent = authenticated ? "Cerrar sesión" : "Iniciar sesión";
+      action.setAttribute("href", authenticated ? "#" : "/login");
+    }
+
+    if (action.dataset.authAction === "logout") {
+      action.addEventListener("click", async (event) => {
+        event.preventDefault();
+        action.setAttribute("aria-busy", "true");
+        action.textContent = "Cerrando...";
+        try {
+          await logout();
+        } catch {
+          clearAuth();
+        }
+        window.location.replace("/login");
+      });
+    }
+  }
+</script>

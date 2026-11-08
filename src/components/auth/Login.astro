@@ -1,0 +1,200 @@
+---
+import { API_BASE_URL } from "@/lib/auth.js"
+---
+
+<style>
+  .login {
+    display: grid;
+    min-height: calc(100svh - var(--header-height));
+    place-items: center;
+    padding: clamp(32px, 8vw, 96px) var(--page-gutter);
+  }
+
+  .login__plate {
+    width: min(100%, 460px);
+    padding: clamp(28px, 5vw, 52px);
+    border: 1px solid var(--color-ink);
+    background: var(--color-surface);
+    box-shadow: 8px 8px 0 var(--color-border);
+  }
+
+  .login__kicker,
+  .login__meta,
+  .login__error,
+  .login__submit {
+    font-family: var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .login__kicker {
+    margin: 0 0 22px;
+    color: var(--color-accent);
+    font-size: 10px;
+    font-weight: 600;
+  }
+
+  .login__title {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: clamp(42px, 8vw, 68px);
+    font-weight: 400;
+    letter-spacing: -0.045em;
+    line-height: 0.95;
+  }
+
+  .login__description {
+    max-width: 34ch;
+    margin: 22px 0 34px;
+    color: var(--color-ink-muted);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .login__form {
+    display: grid;
+    gap: 18px;
+  }
+
+  .login__field {
+    display: grid;
+    gap: 8px;
+  }
+
+  .login__label,
+  .login__meta {
+    color: var(--color-ink-muted);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .login__input {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font: 400 16px/1.2 var(--font-sans);
+  }
+
+  .login__input:focus {
+    border-color: var(--color-accent);
+    outline: 2px solid color-mix(in srgb, var(--color-accent) 25%, transparent);
+    outline-offset: 2px;
+  }
+
+  .login__submit {
+    min-height: 50px;
+    margin-top: 6px;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: var(--color-ink);
+    color: #fff;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .login__submit:hover:not(:disabled) {
+    background: var(--color-brand);
+    transform: translateY(-2px);
+  }
+
+  .login__submit:disabled {
+    cursor: wait;
+    opacity: 0.6;
+  }
+
+  .login__error {
+    min-height: 16px;
+    margin: 0;
+    color: #991b1b;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .login__meta {
+    margin: 28px 0 0;
+    color: var(--color-ink-muted);
+    font-size: 9px;
+  }
+</style>
+
+<main class="login" aria-labelledby="login-title">
+  <section class="login__plate">
+    <p class="login__kicker">Atlas / Acceso de expedicionario</p>
+    <h1 class="login__title" id="login-title">Iniciar sesión</h1>
+    <p class="login__description">
+      Accede al compendio para consultar las fichas y comenzar una expedición de diez rondas.
+    </p>
+
+    <form class="login__form" data-login-form novalidate>
+      <label class="login__field">
+        <span class="login__label">Usuario</span>
+        <input class="login__input" name="username" type="text" autocomplete="username" required />
+      </label>
+
+      <label class="login__field">
+        <span class="login__label">Contraseña</span>
+        <input class="login__input" name="password" type="password" autocomplete="current-password" required />
+      </label>
+
+      <p class="login__error" data-login-error role="alert" aria-live="polite"></p>
+      <button class="login__submit" type="submit" data-login-submit>Entrar al atlas</button>
+    </form>
+
+    <p class="login__meta">Conexión segura · API Atlas</p>
+  </section>
+</main>
+
+<script define:vars={{ apiBaseUrl: API_BASE_URL }}>
+  const form = document.querySelector("[data-login-form]");
+  const errorMessage = document.querySelector("[data-login-error]");
+  const submitButton = document.querySelector("[data-login-submit]");
+
+  if (sessionStorage.getItem("atlas.accessToken")) {
+    window.location.replace("/game");
+  }
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    errorMessage.textContent = "";
+    submitButton.disabled = true;
+    submitButton.textContent = "Verificando...";
+
+    const formData = new FormData(form);
+    try {
+      const response = await fetch(`${apiBaseUrl}/login/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: formData.get("username"),
+          password: formData.get("password"),
+        }),
+      });
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok || !data.token) {
+        throw new Error(data.error || "Usuario o contraseña incorrectos.");
+      }
+
+      sessionStorage.setItem("atlas.accessToken", data.token);
+      sessionStorage.setItem("atlas.refreshToken", data["refresh-token"] || "");
+      sessionStorage.setItem("atlas.user", JSON.stringify(data.user || {}));
+      const next = new URLSearchParams(window.location.search).get("next") || "/game";
+      const safeNext = next.startsWith("/") && !next.startsWith("//") ? next : "/game";
+      window.location.replace(safeNext);
+    } catch (error) {
+      errorMessage.textContent = error.message || "No fue posible iniciar sesión.";
+      submitButton.disabled = false;
+      submitButton.textContent = "Entrar al atlas";
+    }
+  });
+</script>

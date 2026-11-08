@@ -1,4 +1,5 @@
 import fallbackCountries from "../mocks/data.json";
+import { API_BASE_URL, clearAuth, getAuthHeaders } from "./auth.js";
 
 export const TOTAL_ROUNDS = 10;
 export const OPTION_LETTERS = ["A", "B", "C", "D"];
@@ -14,15 +15,32 @@ export function shuffle(items) {
 
 export async function fetchCountries() {
   try {
-    const response = await fetch("http://127.0.0.1:8000/api/countries/");
-    if (response.ok) {
-      const data = await response.json();
-      if (Array.isArray(data) && data.length >= TOTAL_ROUNDS) return data;
+    const response = await fetch(`${API_BASE_URL}/api/countries/`, {
+      headers: getAuthHeaders(),
+    });
+
+    if (response.status === 401) {
+      clearAuth();
+      throw new AuthError("La sesión ha expirado.");
     }
+
+    if (!response.ok) throw new Error("No fue posible consultar los países.");
+
+    const data = await response.json();
+    if (Array.isArray(data) && data.length >= TOTAL_ROUNDS) return data;
+    throw new Error("La API no devolvió suficientes países.");
   } catch (error) {
+    if (error instanceof AuthError) throw error;
     console.warn("API de países inaccesible, recurriendo al respaldo local.", error);
   }
   return fallbackCountries;
+}
+
+export class AuthError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "AuthError";
+  }
 }
 
 export function makeQuestions(countries) {

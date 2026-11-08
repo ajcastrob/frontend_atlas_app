@@ -3,7 +3,11 @@ import { Font } from "astro:assets"
 import "@/styles/global.css"
 import Header from "@/components/header/Header.astro"
 
-const { title = "Atlas - descubre capitales del mundo", description = "Simple juego para aprender capitales y banderas del mundo" } = Astro.props;
+const {
+  title = "Atlas - descubre capitales del mundo",
+  description = "Simple juego para aprender capitales y banderas del mundo",
+  protectedPage = false,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -11,13 +15,19 @@ const { title = "Atlas - descubre capitales del mundo", description = "Simple ju
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="apple-mobile-web-app-title" content="Tinta Pausa" />
+    <meta name="apple-mobile-web-app-title" content="Atlas app" />
     <meta name="description" content={ description } />
     <meta name="generator" content={Astro.generator} />
     <Font cssVariable="--font-display" />
     <Font cssVariable="--font-ui" preload />
     <Font cssVariable="--font-sans" preload />
     <title>{title}</title>
+    {protectedPage && <script is:inline>
+      if (!sessionStorage.getItem("atlas.accessToken")) {
+        const next = `${window.location.pathname}${window.location.search}`;
+        window.location.replace(`/login?next=${encodeURIComponent(next)}`);
+      }
+    </script>}
   </head>
   <body>
     <Header/>
