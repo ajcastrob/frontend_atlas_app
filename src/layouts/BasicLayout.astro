@@ -1,0 +1,28 @@
+---
+import { Font } from "astro:assets"
+import "@/styles/global.css"
+import Header from "@/components/header/Header.astro"
+
+const { title = "Atlas - descubre capitales del mundo", description = "Simple juego para aprender capitales y banderas del mundo" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="apple-mobile-web-app-title" content="Tinta Pausa" />
+    <meta name="description" content={ description } />
+    <meta name="generator" content={Astro.generator} />
+    <Font cssVariable="--font-display" />
+    <Font cssVariable="--font-ui" preload />
+    <Font cssVariable="--font-sans" preload />
+    <title>{title}</title>
+  </head>
+  <body>
+    <Header/>
+    <main id="main">
+      <slot />
+    </main>
+  </body>
+</html>

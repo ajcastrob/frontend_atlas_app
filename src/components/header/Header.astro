@@ -1,0 +1,78 @@
+---
+import HeaderNav from "@/components/header/HeaderNav.astro"
+import HeaderBrand from "@/components/header/HeaderBrand.astro"
+import HeaderPerfil from "@/components/header/HeaderPerfil.astro"
+
+interface Props {
+  linkLogo?: string
+  nameBrand?: string
+}
+
+const {
+  linkLogo = "/assets/icons/logo.svg#atlas",
+  nameBrand = "Atlas",
+} = Astro.props
+---
+
+<style>
+/* 3. Header (móvil por defecto) ------------------------------ */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  background: color-mix(in srgb, var(--color-bg) 85%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-border) 40%, transparent);
+  box-shadow: var(--shadow-header);
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.header__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: var(--header-max-width, 1280px);
+  height: var(--header-height);
+  margin-inline: auto;
+  padding-inline: var(--page-gutter);
+}
+
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Foco accesible global para elementos interactivos en el header */
+.header :global(:is(a, button):focus-visible) {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* 4. Escritorio ---------------------------------------------- */
+@media (min-width: 768px) {
+  .header {
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: none;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .header__actions {
+    gap: 16px;
+  }
+}
+</style>
+
+<header class="header">
+  <div class="header__container">
+    <HeaderBrand linkLogo={linkLogo} nameBrand={nameBrand} />
+    <div class="header__actions">
+      <HeaderNav />
+      <HeaderPerfil />
+    </div>
+  </div>
+</header>

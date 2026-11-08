@@ -1,0 +1,63 @@
+---
+---
+
+<style>
+/* Perfil de usuario */
+.header__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  text-decoration: none;
+  transition:
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.header__cta:hover {
+  background: color-mix(in srgb, var(--color-surface) 75%, var(--color-ink));
+  transform: scale(1.05);
+}
+
+.header__cta:active {
+  transform: scale(0.95);
+}
+
+.header__cta:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.header__cta-icon {
+  display: block;
+  width: 12px;
+  height: 12px;
+  transition: transform 0.2s ease;
+}
+
+/* Escritorio */
+@media (min-width: 768px) {
+  .header__cta {
+    background: var(--color-accent);
+    color: #ffffff;
+  }
+
+  .header__cta:hover {
+    background: var(--color-brand);
+    box-shadow: 0 4px 12px rgb(0 56 255 / 0.25);
+    transform: scale(1.06);
+  }
+}
+</style>
+
+<a class="header__cta" href="#" aria-label="Perfil del usuario">
+  <svg class="header__cta-icon" viewBox="0 0 12 12" aria-hidden="true" focusable="false">
+    <use href="/assets/icons/user.svg#user"></use>
+  </svg>
+</a>

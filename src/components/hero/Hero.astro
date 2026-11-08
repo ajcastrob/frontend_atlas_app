@@ -1,0 +1,90 @@
+---
+import HeroIntro from "@/components/hero/HeroIntro.astro"
+import HeroSpecimens from "@/components/hero/HeroSpecimens.astro"
+import HeroFeatures from "@/components/hero/HeroFeatures.astro"
+
+interface Props {
+  eyebrow?: string
+  title?: string
+  description?: string
+  ctaPrimaryText?: string
+  ctaPrimaryHref?: string
+  ctaSecondaryText?: string
+  ctaSecondaryHref?: string
+}
+
+const {
+  eyebrow,
+  title,
+  description,
+  ctaPrimaryText,
+  ctaPrimaryHref,
+  ctaSecondaryText,
+  ctaSecondaryHref,
+} = Astro.props
+---
+
+<style>
+.hero {
+  position: relative;
+  width: 100%;
+  padding-block: clamp(32px, 20px + 3.5vw, 64px);
+  overflow: clip;
+}
+
+.hero__container {
+  width: 100%;
+  max-width: var(--header-max-width, 1280px);
+  margin-inline: auto;
+  padding-inline: var(--page-gutter);
+}
+
+/* Escenario principal con división en dos columnas */
+.hero__stage {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 40px;
+}
+
+@media (min-width: 900px) {
+  .hero__stage {
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+    gap: 56px;
+  }
+}
+
+.hero__column--intro {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero__column--specimens {
+  display: flex;
+  width: 100%;
+}
+</style>
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__container">
+    <div class="hero__stage">
+      <div class="hero__column hero__column--intro">
+        <HeroIntro
+          eyebrow={eyebrow}
+          title={title}
+          description={description}
+          ctaPrimaryText={ctaPrimaryText}
+          ctaPrimaryHref={ctaPrimaryHref}
+          ctaSecondaryText={ctaSecondaryText}
+          ctaSecondaryHref={ctaSecondaryHref}
+        />
+      </div>
+
+      <div class="hero__column hero__column--specimens">
+        <HeroSpecimens />
+      </div>
+    </div>
+
+    <HeroFeatures />
+  </div>
+</section>

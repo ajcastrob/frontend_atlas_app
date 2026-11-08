@@ -1,0 +1,63 @@
+/* 1. Tokens -------------------------------------------------- */
+:root {
+  --color-bg: #f9f9f9;
+  --color-surface: #eeeeee;
+  --color-ink: #1a1c1c;
+  --color-ink-muted: #5f5e5e;
+  --color-border: #c4c5da;
+  --color-border-subtle: #e2e4ea;
+  --color-brand: #0038ff;
+  --color-accent: #0028c2;
+
+  --font-serif: var(--font-display, "Playfair Display", Georgia, serif);
+  --font-mono: var(--font-ui, "JetBrains Mono", ui-monospace, monospace);
+  --font-sans: var(--font-sans, Inter, system-ui, sans-serif);
+  --font-body: var(--font-sans);
+
+  --header-height: 64px;
+  --header-max-width: 1280px;
+  --page-gutter: 20px;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-pill: 9999px;
+
+  --shadow-header: 0 1px 8px rgb(0 0 0 / 0.04);
+  --shadow-card: 0 1px 3px rgb(0 0 0 / 0.05), 0 1px 2px rgb(0 0 0 / 0.03);
+  --shadow-card-hover: 0 8px 24px rgb(0 0 0 / 0.07), 0 2px 6px rgb(0 0 0 / 0.04);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --page-gutter: 48px;
+  }
+}
+
+/* 2. Base ---------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Accesibilidad: reducción de movimiento */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

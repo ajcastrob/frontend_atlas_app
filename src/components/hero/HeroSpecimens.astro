@@ -1,0 +1,228 @@
+---
+interface Specimen {
+  id: string
+  number: string
+  iso: string
+  country: string
+  capital: string
+  coordinates: string
+  flagType: "jpn" | "per" | "che" | "grc"
+}
+
+const specimens: Specimen[] = [
+  {
+    id: "jpn",
+    number: "LÁMINA · 01",
+    iso: "JPN",
+    country: "Japón",
+    capital: "Tokio",
+    coordinates: "35°41′N · 139°41′E",
+    flagType: "jpn",
+  },
+  {
+    id: "per",
+    number: "LÁMINA · 02",
+    iso: "PER",
+    country: "Perú",
+    capital: "Lima",
+    coordinates: "12°02′S · 77°01′W",
+    flagType: "per",
+  },
+  {
+    id: "che",
+    number: "LÁMINA · 03",
+    iso: "CHE",
+    country: "Suiza",
+    capital: "Berna",
+    coordinates: "46°57′N · 07°26′E",
+    flagType: "che",
+  },
+  {
+    id: "grc",
+    number: "LÁMINA · 04",
+    iso: "GRC",
+    country: "Grecia",
+    capital: "Atenas",
+    coordinates: "37°58′N · 23°43′E",
+    flagType: "grc",
+  },
+]
+---
+
+<style>
+.specimens-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  .specimens-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+/* Tarjeta individual de lámina */
+.specimen-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  background-color: #ffffff;
+  border: 1px solid var(--color-border-subtle);
+  box-shadow: var(--shadow-card);
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s ease,
+    border-color 0.25s ease;
+}
+
+.specimen-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-border);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* Cabecera de la lámina: Número e ISO */
+.specimen-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--color-ink-muted);
+}
+
+.specimen-card__iso {
+  padding: 2px 6px;
+  border-radius: 3px;
+  background-color: var(--color-surface);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+/* Escenario / marco de la bandera */
+.specimen-card__flag-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 14px;
+  border-radius: 4px;
+  background-color: #f6f6f7;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  overflow: clip;
+}
+
+.specimen-flag {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Pie de la lámina: Capital y coordenadas */
+.specimen-card__footer {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.specimen-card__title-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.specimen-card__capital {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-ink);
+}
+
+.specimen-card__country {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-ink-muted);
+}
+
+.specimen-card__coords {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--color-ink-muted);
+  letter-spacing: 0.03em;
+}
+</style>
+
+<div class="specimens-grid" aria-label="Muestras cartográficas del compendio">
+  {specimens.map((item) => (
+    <article class="specimen-card" data-specimen={item.id}>
+      <div class="specimen-card__header">
+        <span class="specimen-card__number">{item.number}</span>
+        <span class="specimen-card__iso">{item.iso}</span>
+      </div>
+
+      <div class="specimen-card__flag-stage" aria-hidden="true">
+        {item.flagType === "jpn" && (
+          <svg class="specimen-flag" viewBox="0 0 900 600" role="img" aria-label="Bandera de Japón">
+            <rect width="900" height="600" fill="#ffffff" />
+            <circle cx="450" cy="300" r="180" fill="#bc002d" />
+          </svg>
+        )}
+
+        {item.flagType === "per" && (
+          <svg class="specimen-flag" viewBox="0 0 900 600" role="img" aria-label="Bandera de Perú">
+            <rect width="300" height="600" fill="#d91023" />
+            <rect x="300" width="300" height="600" fill="#ffffff" />
+            <rect x="600" width="300" height="600" fill="#d91023" />
+            <circle cx="450" cy="300" r="40" fill="#f4b223" opacity="0.9" />
+          </svg>
+        )}
+
+        {item.flagType === "che" && (
+          <svg class="specimen-flag" viewBox="0 0 600 600" role="img" aria-label="Bandera de Suiza">
+            <rect width="600" height="600" fill="#d52b1e" />
+            <rect x="250" y="125" width="100" height="350" fill="#ffffff" rx="4" />
+            <rect x="125" y="250" width="350" height="100" fill="#ffffff" rx="4" />
+          </svg>
+        )}
+
+        {item.flagType === "grc" && (
+          <svg class="specimen-flag" viewBox="0 0 900 600" role="img" aria-label="Bandera de Grecia">
+            <rect width="900" height="600" fill="#ffffff" />
+            <rect y="0" width="900" height="66.6" fill="#0d5eaf" />
+            <rect y="133.3" width="900" height="66.6" fill="#0d5eaf" />
+            <rect y="266.6" width="900" height="66.6" fill="#0d5eaf" />
+            <rect y="400" width="900" height="66.6" fill="#0d5eaf" />
+            <rect y="533.3" width="900" height="66.6" fill="#0d5eaf" />
+            <rect width="333.3" height="333.3" fill="#0d5eaf" />
+            <rect x="133.3" y="0" width="66.6" height="333.3" fill="#ffffff" />
+            <rect x="0" y="133.3" width="333.3" height="66.6" fill="#ffffff" />
+          </svg>
+        )}
+      </div>
+
+      <div class="specimen-card__footer">
+        <div class="specimen-card__title-row">
+          <h3 class="specimen-card__capital">{item.capital}</h3>
+          <span class="specimen-card__country">{item.country}</span>
+        </div>
+        <div class="specimen-card__coords">{item.coordinates}</div>
+      </div>
+    </article>
+  ))}
+</div>

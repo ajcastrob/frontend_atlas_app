@@ -1,0 +1,75 @@
+---
+interface Props {
+  linkLogo?: string
+  nameBrand?: string
+}
+
+const {
+  linkLogo = "/assets/icons/logo.svg#atlas",
+  nameBrand = "Atlas",
+} = Astro.props
+---
+
+<style>
+/* Marca */
+.header__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-ink);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.header__brand:hover {
+  opacity: 0.85;
+}
+
+.header__brand:active {
+  transform: scale(0.98);
+}
+
+.header__logo {
+  display: block;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.header__brand:hover .header__logo {
+  transform: scale(1.04);
+}
+
+.header__title {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 1.68px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Foco accesible */
+.header__brand:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+/* Escritorio */
+@media (min-width: 768px) {
+  .header__brand {
+    gap: 16px;
+  }
+}
+</style>
+
+<a class="header__brand" href="/" aria-label={`${nameBrand} - Inicio`}>
+  <svg class="header__logo" viewBox="0 0 32 32" aria-hidden="true">
+    <use href={linkLogo}></use>
+  </svg>
+  <span class="header__title">{nameBrand}</span>
+</a>

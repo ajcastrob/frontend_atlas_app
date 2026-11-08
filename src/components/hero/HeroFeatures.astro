@@ -1,0 +1,113 @@
+---
+interface Feature {
+  index: string
+  label: string
+  title: string
+  description: string
+}
+
+const features: Feature[] = [
+  {
+    index: "01",
+    label: "REGISTRO",
+    title: "195 Banderas y Capitales",
+    description:
+      "El compendio cartográfico mundial completo, organizado para la diversión de aprender nuevos lugares.",
+  },
+  {
+    index: "02",
+    label: "FORMATO",
+    title: "Partidas de 10 Rondas",
+    description:
+      "Sesiones rápidas sin distracciones ni artificios: solo reconocimiento y memoria.",
+  },
+  {
+    index: "03",
+    label: "HISTORIAL",
+    title: "Récord e Historial",
+    description:
+      "Registra tus marcas, precisión y progreso global en tu propio archivo de expedición personal.",
+  },
+]
+---
+
+<style>
+.hero-features {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  width: 100%;
+  margin-top: 48px;
+  padding-top: 36px;
+  border-top: 1px solid var(--color-border);
+}
+
+@media (min-width: 768px) {
+  .hero-features {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px;
+    margin-top: 64px;
+    padding-top: 48px;
+  }
+}
+
+.hero-feature-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.hero-feature-item:hover {
+  transform: translateY(-2px);
+}
+
+/* Encabezado numérico e índice */
+.hero-feature-item__index {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--color-brand);
+}
+
+.hero-feature-item__index-num {
+  font-size: 13px;
+}
+
+.hero-feature-item__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-ink);
+}
+
+.hero-feature-item__desc {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-ink-muted);
+  text-wrap: pretty;
+}
+</style>
+
+<div class="hero-features" aria-label="Especificaciones del sistema">
+  {features.map((feature) => (
+    <div class="hero-feature-item">
+      <div class="hero-feature-item__index">
+        <span class="hero-feature-item__index-num">{feature.index}</span>
+        <span>·</span>
+        <span>{feature.label}</span>
+      </div>
+      <h2 class="hero-feature-item__title">{feature.title}</h2>
+      <p class="hero-feature-item__desc">{feature.description}</p>
+    </div>
+  ))}
+</div>

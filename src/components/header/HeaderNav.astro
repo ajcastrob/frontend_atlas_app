@@ -1,0 +1,86 @@
+---
+---
+
+<style>
+/* Navegación y acciones */
+.header__nav {
+  display: flex;
+  align-items: center;
+}
+
+.header__menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.header__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding-inline: 12px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 14px;
+  letter-spacing: 0.55px;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.header__link:hover {
+  background: color-mix(in srgb, var(--color-surface) 75%, var(--color-ink));
+  color: var(--color-ink);
+}
+
+.header__link:active {
+  transform: scale(0.97);
+}
+
+.header__link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Escritorio */
+@media (min-width: 768px) {
+  .header__link {
+    height: 34px;
+    padding: 8px 16px;
+    background: transparent;
+    border: 1px solid var(--color-ink);
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.6px;
+  }
+
+  .header__link:hover {
+    background: var(--color-ink);
+    color: #ffffff;
+  }
+}
+</style>
+
+<nav class="header__nav" id="site-nav" data-header-nav aria-label="Principal">
+  <ul class="header__menu">
+    <li>
+      <a class="header__link" href="#">
+        Iniciar sesión
+      </a>
+    </li>
+  </ul>
+</nav>
