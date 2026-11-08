@@ -290,7 +290,7 @@
     transform 0.18s ease;
 }
 
-.quiz-option:hover:not(:disabled) {
+.quiz-option:hover:not(:disabled):not(.is-selected) {
   border-color: var(--color-ink);
   background: #fff;
   transform: translateX(4px);
