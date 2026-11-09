@@ -1,8 +1,7 @@
 import fallbackCountries from "../mocks/data.json";
-import { API_BASE_URL, clearAuth, getAuthHeaders } from "./auth.js";
-
-export const TOTAL_ROUNDS = 10;
-export const OPTION_LETTERS = ["A", "B", "C", "D"];
+import { clearAuth, getAuthHeaders } from "./auth.js";
+import { TOTAL_ROUNDS } from "./constants.js";
+import { API_BASE_URL } from "./constants.js";
 
 export function shuffle(items) {
   const copy = [...items];

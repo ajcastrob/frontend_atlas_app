@@ -1,13 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import {
-  AuthError,
-  fetchCountries,
-  getResultCopy,
-  makeQuestions,
-  TOTAL_ROUNDS,
-} from "../lib/game.js";
-
-const ANSWER_KEYS = ["A", "B", "C", "D"];
+import { AuthError, fetchCountries, getResultCopy, makeQuestions } from "../lib/game.js";
+import { TOTAL_ROUNDS } from "@/lib/constants.js";
+import { ANSWER_KEYS } from "@/lib/constants.js";
 
 function getOptionIndex(key) {
   const letterIndex = ANSWER_KEYS.indexOf(key);

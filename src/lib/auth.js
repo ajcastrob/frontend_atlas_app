@@ -1,7 +1,4 @@
-export const API_BASE_URL = "http://127.0.0.1:8000";
-export const AUTH_TOKEN_KEY = "atlas.accessToken";
-export const AUTH_REFRESH_TOKEN_KEY = "atlas.refreshToken";
-export const AUTH_USER_KEY = "atlas.user";
+import { API_BASE_URL, AUTH_TOKEN_KEY, AUTH_REFRESH_TOKEN_KEY, AUTH_USER_KEY } from "./constants";
 
 function getStorage() {
   return typeof window === "undefined" ? null : window.sessionStorage;
