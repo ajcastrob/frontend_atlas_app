@@ -1,6 +1,6 @@
-import { Finished } from "./Finished.jsx";
-import { Bandera } from "./Bandera.jsx";
-import { QuizCountries } from "./QuizCountries.jsx";
+import { Finished } from "./components/Finished.jsx";
+import { Bandera } from "./components/Bandera.jsx";
+import { QuizCountries } from "./components/QuizCountries.jsx";
 import { TOTAL_ROUNDS } from "../lib/constants.js";
 import { useCountries } from "./hooks/useCountries.js";
 import { useQuiz } from "./hooks/useQuiz.js";

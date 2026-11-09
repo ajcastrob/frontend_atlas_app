@@ -1,5 +1,5 @@
 import { ArrowButton } from "./ArrowButton.jsx";
-import { OPTION_LETTERS, TOTAL_ROUNDS } from "../lib/constants.js";
+import { OPTION_LETTERS, TOTAL_ROUNDS } from "@/lib/constants.js";
 
 export const QuizCountries = ({
   country,
