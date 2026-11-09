@@ -4,6 +4,7 @@ import { Bandera } from "./Bandera.jsx";
 import { QuizCountries } from "./QuizCountries.jsx";
 import { TOTAL_ROUNDS } from "../lib/constants.js";
 import { useCountries } from "./useCountries.js";
+import { useGamingKeyboard } from "./useGamingKeyboard.js";
 import "../styles/game.css";
 
 export default function Game() {
@@ -12,15 +13,26 @@ export default function Game() {
     confirm,
     current,
     currentIndex,
+    setCurrentIndex,
     finished,
-    next,
-    pass,
+    setFinished,
     progress,
     result,
     score,
     selectOption,
     startNewGame,
+    updateCurrent,
   } = useGame({ setQuestions, questions, countries, loading });
+  const { pass, next } = useGamingKeyboard({
+    current,
+    finished,
+    setFinished,
+    currentIndex,
+    setCurrentIndex,
+    updateCurrent,
+    confirm,
+    selectOption,
+  });
 
   if (loading) {
     return (
