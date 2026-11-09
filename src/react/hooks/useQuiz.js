@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useReducer } from "react";
-import { getResultCopy } from "../lib/game.js";
-import { TOTAL_ROUNDS } from "../lib/constants.js";
-import { initialQuizState, quizReducer } from "./quizReducer.js";
+import { getResultCopy } from "@/lib/game.js";
+import { TOTAL_ROUNDS } from "@/lib/constants.js";
+import { initialQuizState, quizReducer } from "../context/quizReducer.js";
 
 export function useQuiz(countries) {
   const [state, dispatch] = useReducer(quizReducer, initialQuizState);

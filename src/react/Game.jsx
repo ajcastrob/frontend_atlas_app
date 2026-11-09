@@ -2,9 +2,9 @@ import { Finished } from "./Finished.jsx";
 import { Bandera } from "./Bandera.jsx";
 import { QuizCountries } from "./QuizCountries.jsx";
 import { TOTAL_ROUNDS } from "../lib/constants.js";
-import { useCountries } from "./useCountries.js";
-import { useQuiz } from "./useQuiz.js";
-import { useQuizKeyboard } from "./useQuizKeyboard.js";
+import { useCountries } from "./hooks/useCountries.js";
+import { useQuiz } from "./hooks/useQuiz.js";
+import { useQuizKeyboard } from "./hooks/useQuizKeyboard.js";
 import "../styles/game.css";
 
 export default function Game() {

@@ -1,5 +1,5 @@
-import { makeQuestions } from "../lib/game.js";
-import { TOTAL_ROUNDS } from "../lib/constants.js";
+import { makeQuestions } from "@/lib/game.js";
+import { TOTAL_ROUNDS } from "@/lib/constants.js";
 
 export const initialQuizState = {
   questions: [],
