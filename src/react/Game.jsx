@@ -1,37 +1,35 @@
 import { Finished } from "./Finished.jsx";
-import { useGame } from "./useGame.js";
 import { Bandera } from "./Bandera.jsx";
 import { QuizCountries } from "./QuizCountries.jsx";
 import { TOTAL_ROUNDS } from "../lib/constants.js";
 import { useCountries } from "./useCountries.js";
-import { useGamingKeyboard } from "./useGamingKeyboard.js";
+import { useQuiz } from "./useQuiz.js";
+import { useQuizKeyboard } from "./useQuizKeyboard.js";
 import "../styles/game.css";
 
 export default function Game() {
-  const { countries, questions, setQuestions, loading, error } = useCountries();
+  const { countries, loading, error } = useCountries();
   const {
     confirm,
     current,
     currentIndex,
-    setCurrentIndex,
     finished,
-    setFinished,
+    next,
+    pass,
     progress,
+    questions,
     result,
+    restart,
     score,
     selectOption,
-    startNewGame,
-    updateCurrent,
-  } = useGame({ setQuestions, questions, countries, loading });
-  const { pass, next } = useGamingKeyboard({
+  } = useQuiz(countries);
+
+  useQuizKeyboard({
     current,
     finished,
-    setFinished,
-    currentIndex,
-    setCurrentIndex,
-    updateCurrent,
     confirm,
     selectOption,
+    next,
   });
 
   if (loading) {
@@ -69,7 +67,7 @@ export default function Game() {
         score={score}
         questions={questions}
         totalRounds={TOTAL_ROUNDS}
-        onRestart={startNewGame}
+        onRestart={restart}
       />
     );
   }

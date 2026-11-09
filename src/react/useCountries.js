@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { AuthError, fetchCountries, makeQuestions } from "../lib/game.js";
+import { AuthError, fetchCountries } from "../lib/game.js";
 
 export const useCountries = () => {
   const [countries, setCountries] = useState([]);
-  const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -15,7 +14,6 @@ export const useCountries = () => {
         if (!active) return;
 
         setCountries(data);
-        setQuestions(makeQuestions(data));
         setError("");
       })
       .catch((loadError) => {
@@ -35,5 +33,5 @@ export const useCountries = () => {
     };
   }, []);
 
-  return { countries, questions, setQuestions, loading, error };
+  return { countries, loading, error };
 };
