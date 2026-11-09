@@ -3,25 +3,24 @@ import { useGame } from "./useGame.js";
 import { Bandera } from "./Bandera.jsx";
 import { QuizCountries } from "./QuizCountries.jsx";
 import { TOTAL_ROUNDS } from "../lib/constants.js";
+import { useCountries } from "./useCountries.js";
 import "../styles/game.css";
 
 export default function Game() {
+  const { countries, questions, setQuestions, loading, error } = useCountries();
   const {
     confirm,
     current,
     currentIndex,
-    error,
     finished,
-    loading,
     next,
     pass,
     progress,
-    questions,
     result,
     score,
     selectOption,
     startNewGame,
-  } = useGame();
+  } = useGame({ setQuestions, questions, countries, loading });
 
   if (loading) {
     return (

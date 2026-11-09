@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { AuthError, fetchCountries, getResultCopy, makeQuestions } from "../lib/game.js";
+import { getResultCopy, makeQuestions } from "../lib/game.js";
 import { TOTAL_ROUNDS } from "@/lib/constants.js";
 import { ANSWER_KEYS } from "@/lib/constants.js";
 
@@ -11,13 +11,9 @@ function getOptionIndex(key) {
   return Number.isInteger(numberIndex) ? numberIndex : -1;
 }
 
-export function useGame() {
-  const [countries, setCountries] = useState([]);
-  const [questions, setQuestions] = useState([]);
+export function useGame({ setQuestions, questions, countries, loading }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
   const [finished, setFinished] = useState(false);
 
   const current = questions[currentIndex];
@@ -36,34 +32,6 @@ export function useGame() {
     },
     [countries],
   );
-
-  useEffect(() => {
-    let active = true;
-
-    fetchCountries()
-      .then((data) => {
-        if (!active) return;
-
-        setCountries(data);
-        setQuestions(makeQuestions(data));
-        setError("");
-      })
-      .catch((loadError) => {
-        if (loadError instanceof AuthError) {
-          window.location.replace("/login?next=/game");
-          return;
-        }
-
-        if (active) setError("No fue posible cargar el archivo cartográfico.");
-      })
-      .finally(() => {
-        if (active) setLoading(false);
-      });
-
-    return () => {
-      active = false;
-    };
-  }, []);
 
   const updateCurrent = useCallback(
     (update) => {
@@ -135,7 +103,6 @@ export function useGame() {
   return {
     current,
     currentIndex,
-    error,
     finished,
     loading,
     next,
@@ -146,6 +113,5 @@ export function useGame() {
     selectOption,
     startNewGame,
     confirm,
-    questions,
   };
 }
