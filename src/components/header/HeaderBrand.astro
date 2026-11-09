@@ -18,16 +18,11 @@ const {
   gap: 8px;
   color: var(--color-ink);
   text-decoration: none;
-  border-radius: 6px;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: color 0.2s ease;
 }
 
 .header__brand:hover {
-  opacity: 0.85;
-}
-
-.header__brand:active {
-  transform: scale(0.98);
+  color: var(--color-brand);
 }
 
 .header__logo {
@@ -35,18 +30,12 @@ const {
   flex: none;
   width: 32px;
   height: 32px;
-  border-radius: 8px;
-  transition: transform 0.2s ease;
-}
-
-.header__brand:hover .header__logo {
-  transform: scale(1.04);
 }
 
 .header__title {
   font-family: var(--font-body);
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 16px;
   letter-spacing: 1.68px;
   text-transform: uppercase;

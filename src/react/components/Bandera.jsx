@@ -3,10 +3,10 @@ export const Bandera = ({ country }) => {
     country.flag_url || `https://flagcdn.com/w640/${country.iso_code.toLowerCase()}.png`;
 
   return (
-    <aside className="vexillo-plate" aria-label="Ficha vexilológica">
+    <aside className="vexillo-plate" aria-label={`Bandera de ${country.name}`}>
       <div className="vexillo-plate__header">
         <span>{country.region.toUpperCase()}</span>
-        <b>{country.iso_code}</b>
+        <span>Bandera nacional</span>
       </div>
       <div className="vexillo-plate__flag-frame">
         <img src={flagUrl} alt={`Pabellón oficial de ${country.name}`} />

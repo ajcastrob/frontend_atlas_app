@@ -1,31 +1,36 @@
 /* 1. Tokens -------------------------------------------------- */
 :root {
-  --color-bg: #f9f9f9;
-  --color-surface: #eeeeee;
-  --color-ink: #1a1c1c;
-  --color-ink-muted: #5f5e5e;
-  --color-border: #c4c5da;
-  --color-border-subtle: #e2e4ea;
-  --color-brand: #0038ff;
-  --color-accent: #0028c2;
+  --color-bg: #f6f6f3;
+  --color-surface: #ecece7;
+  --color-panel: #fdfdfb;
+  --color-ink: #161714;
+  --color-ink-muted: #5e625b;
+  --color-border: #b9beb6;
+  --color-border-subtle: #d9dcd5;
+  --color-brand: #1748d4;
+  --color-accent: #11369e;
+  --color-board: #143a87;
+  --color-board-deep: #0c2863;
+  --color-board-ink: #f7f7f3;
+  --color-marker: #d7a13a;
 
   --font-serif: var(--font-display, "Playfair Display", Georgia, serif);
   --font-mono: var(--font-ui, "JetBrains Mono", ui-monospace, monospace);
   --font-sans: var(--font-sans, Inter, system-ui, sans-serif);
   --font-body: var(--font-sans);
 
-  --header-height: 64px;
-  --header-max-width: 1280px;
-  --page-gutter: 20px;
+  --header-height: 68px;
+  --header-max-width: 1360px;
+  --page-gutter: 24px;
 
   --radius-sm: 4px;
   --radius-md: 6px;
   --radius-lg: 8px;
   --radius-pill: 9999px;
 
-  --shadow-header: 0 1px 8px rgb(0 0 0 / 0.04);
-  --shadow-card: 0 1px 3px rgb(0 0 0 / 0.05), 0 1px 2px rgb(0 0 0 / 0.03);
-  --shadow-card-hover: 0 8px 24px rgb(0 0 0 / 0.07), 0 2px 6px rgb(0 0 0 / 0.04);
+  --shadow-header: none;
+  --shadow-card: none;
+  --shadow-card-hover: none;
 }
 
 @media (min-width: 768px) {
@@ -48,6 +53,11 @@ body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body::selection {
+  background: var(--color-brand);
+  color: #fff;
 }
 
 /* Accesibilidad: reducción de movimiento */

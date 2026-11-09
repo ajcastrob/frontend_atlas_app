@@ -10,12 +10,12 @@ interface Props {
 }
 
 const {
-  eyebrow = "COMPENDIO GEOGRÁFICO",
-  title = "El mundo en láminas.",
-  description = "Adivina la capital. Diez rondas para ponerte a prueba.",
-  ctaPrimaryText = "COMENZAR EXPEDICIÓN",
+  eyebrow = "ATLAS DE EXPEDICIONES",
+  title = "Cada país abre una ruta.",
+  description = "Reconoce su bandera, encuentra su capital y conviértela en parte de tu mapa.",
+  ctaPrimaryText = "EMPEZAR A JUGAR",
   ctaPrimaryHref = "/register",
-  ctaSecondaryText = "O INICIAR SESIÓN",
+  ctaSecondaryText = "INICIAR SESIÓN",
   ctaSecondaryHref = "/login",
 } = Astro.props
 ---
@@ -25,7 +25,8 @@ const {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 20px;
+  gap: 28px;
+  max-width: 580px;
 }
 
 /* Badge con punto indicador */
@@ -34,39 +35,28 @@ const {
   align-items: center;
   gap: 8px;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-ink-muted);
 }
 
 .hero-intro__dot {
-  width: 7px;
-  height: 7px;
-  border-radius: var(--radius-pill);
-  background-color: var(--color-brand);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-brand) 20%, transparent);
-  animation: pulse-dot 2.5s ease-in-out infinite;
-}
-
-@keyframes pulse-dot {
-  0%, 100% {
-    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-brand) 25%, transparent);
-  }
-  50% {
-    box-shadow: 0 0 0 5px color-mix(in srgb, var(--color-brand) 10%, transparent);
-  }
+  width: 9px;
+  height: 9px;
+  border: 2px solid var(--color-brand);
+  border-radius: 50%;
 }
 
 /* Título principal con tipografía editorial */
 .hero-intro__title {
   margin: 0;
   font-family: var(--font-serif);
-  font-size: clamp(2.25rem, 1.5rem + 3.2vw, 4.25rem);
+  font-size: clamp(3.4rem, 2.4rem + 3.45vw, 5.9rem);
   font-weight: 400;
-  line-height: 1.06;
-  letter-spacing: -0.02em;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
   color: var(--color-ink);
   text-wrap: balance;
 }
@@ -74,10 +64,10 @@ const {
 /* Descripción */
 .hero-intro__description {
   margin: 0;
-  max-width: 48ch;
+  max-width: 37ch;
   font-family: var(--font-sans);
-  font-size: clamp(1rem, 0.95rem + 0.35vw, 1.15rem);
-  line-height: 1.6;
+  font-size: 1.05rem;
+  line-height: 1.55;
   color: var(--color-ink-muted);
   text-wrap: pretty;
 }
@@ -87,7 +77,7 @@ const {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   margin-top: 12px;
 }
 
@@ -95,11 +85,11 @@ const {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  height: 48px;
-  padding-inline: 24px;
-  border-radius: var(--radius-sm);
-  background-color: var(--color-ink);
+  gap: 12px;
+  height: 52px;
+  padding-inline: 26px;
+  border-radius: 0;
+  background-color: var(--color-brand);
   color: #ffffff;
   font-family: var(--font-mono);
   font-size: 12px;
@@ -107,21 +97,18 @@ const {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
-  box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
   transition:
     background-color 0.25s ease,
-    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.25s ease;
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hero-intro__cta-primary:hover {
-  background-color: var(--color-brand);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px color-mix(in srgb, var(--color-brand) 35%, transparent);
+  background-color: var(--color-accent);
+  transform: translateY(-1px);
 }
 
 .hero-intro__cta-primary:active {
-  transform: translateY(0) scale(0.98);
+  transform: translateY(1px);
 }
 
 .hero-intro__cta-icon {
@@ -138,9 +125,9 @@ const {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 48px;
-  padding-inline: 16px;
-  border-radius: var(--radius-sm);
+  height: 52px;
+  padding-inline: 18px;
+  border-radius: 0;
   background: transparent;
   color: var(--color-ink-muted);
   font-family: var(--font-mono);
@@ -149,13 +136,13 @@ const {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   text-decoration: none;
-  border-bottom: 1px solid transparent;
+  border: 1px solid var(--color-border);
   transition: color 0.2s ease, border-color 0.2s ease;
 }
 
 .hero-intro__cta-secondary:hover {
-  color: var(--color-ink);
-  border-bottom-color: var(--color-ink);
+  color: var(--color-brand);
+  border-color: var(--color-brand);
 }
 
 .hero-intro__cta-primary:focus-visible,

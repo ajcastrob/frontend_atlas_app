@@ -10,23 +10,24 @@
   flex: none;
   width: 32px;
   height: 32px;
-  border-radius: var(--radius-pill);
-  background: var(--color-surface);
+  border: 1px solid var(--color-ink);
+  border-radius: 0;
+  background: transparent;
   color: var(--color-ink);
   text-decoration: none;
   transition:
     transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
-    background-color 0.2s ease,
-    box-shadow 0.2s ease;
+    background-color 0.2s ease;
 }
 
 .header__cta:hover {
-  background: color-mix(in srgb, var(--color-surface) 75%, var(--color-ink));
-  transform: scale(1.05);
+  background: var(--color-ink);
+  color: #fff;
+  transform: translateY(-1px);
 }
 
 .header__cta:active {
-  transform: scale(0.95);
+  transform: translateY(1px);
 }
 
 .header__cta:focus-visible {
@@ -44,14 +45,13 @@
 /* Escritorio */
 @media (min-width: 768px) {
   .header__cta {
-    background: var(--color-accent);
-    color: #ffffff;
+    background: transparent;
+    color: var(--color-ink);
   }
 
   .header__cta:hover {
-    background: var(--color-brand);
-    box-shadow: 0 4px 12px rgb(0 56 255 / 0.25);
-    transform: scale(1.06);
+    background: var(--color-ink);
+    transform: translateY(-1px);
   }
 }
 </style>

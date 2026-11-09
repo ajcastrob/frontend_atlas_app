@@ -1,11 +1,10 @@
 import { ArrowButton } from "./ArrowButton";
-import { TOTAL_ROUNDS } from "@/lib/constants";
 
 export const Finished = ({ result, score, questions, totalRounds, onRestart }) => {
   return (
     <main className="game-container game-container--results">
       <section className="game-results" aria-label="Resultados de la expedición">
-        <span className="game-results__badge">RONDA FINALIZADA · {TOTAL_ROUNDS} PAÍSES</span>
+        <span className="game-results__badge">EXPEDICIÓN FINALIZADA</span>
         <h1>{result.title}</h1>
         <p>{result.summary}</p>
         <div className="game-results__score-box">

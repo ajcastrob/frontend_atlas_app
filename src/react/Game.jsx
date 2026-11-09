@@ -86,7 +86,6 @@ export default function Game() {
           <span>/</span>
           <strong>{country.name.toUpperCase()}</strong>
         </div>
-        <span className="game-breadcrumb__iso">ISO-CODE: {country.iso_code}</span>
       </nav>
 
       <div className="game-stage">
