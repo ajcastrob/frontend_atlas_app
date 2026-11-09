@@ -5,6 +5,7 @@ import { TOTAL_ROUNDS } from "../lib/constants.js";
 import { useCountries } from "./hooks/useCountries.js";
 import { useQuiz } from "./hooks/useQuiz.js";
 import { useQuizKeyboard } from "./hooks/useQuizKeyboard.js";
+import { useElapsedTime } from "./hooks/useElapsedTime.js";
 import "../styles/game.css";
 
 export default function Game() {
@@ -21,8 +22,14 @@ export default function Game() {
     result,
     restart,
     score,
+    sessionId,
     selectOption,
   } = useQuiz(countries);
+
+  const elapsedSeconds = useElapsedTime(
+    Boolean(current && !finished && !loading && !error),
+    sessionId,
+  );
 
   useQuizKeyboard({
     current,
@@ -67,6 +74,7 @@ export default function Game() {
         score={score}
         questions={questions}
         totalRounds={TOTAL_ROUNDS}
+        elapsedSeconds={elapsedSeconds}
         onRestart={restart}
       />
     );
@@ -96,6 +104,7 @@ export default function Game() {
           selectOption={selectOption}
           currentIndex={currentIndex}
           progress={progress}
+          elapsedSeconds={elapsedSeconds}
           confirm={confirm}
           next={next}
           pass={pass}

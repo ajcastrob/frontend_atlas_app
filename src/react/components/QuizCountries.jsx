@@ -1,4 +1,5 @@
 import { ArrowButton } from "./ArrowButton.jsx";
+import { WorldClock } from "./WorldClock.jsx";
 import { OPTION_LETTERS, TOTAL_ROUNDS } from "@/lib/constants.js";
 
 export const QuizCountries = ({
@@ -9,15 +10,19 @@ export const QuizCountries = ({
   confirm,
   next,
   pass,
+  elapsedSeconds,
   selectOption,
 }) => {
   return (
     <section className="quiz-module" aria-label="Módulo de examen">
       <div className="quiz-module__meta">
         <span>{country.region.toUpperCase()} · CAPITALES</span>
-        <strong>
-          RONDA {String(currentIndex + 1).padStart(2, "0")} / {TOTAL_ROUNDS}
-        </strong>
+        <div className="quiz-module__status">
+          <WorldClock elapsedSeconds={elapsedSeconds} />
+          <strong>
+            RONDA {String(currentIndex + 1).padStart(2, "0")} / {TOTAL_ROUNDS}
+          </strong>
+        </div>
       </div>
       <div className="quiz-module__progress-bar">
         <div style={{ width: `${progress}%` }} />

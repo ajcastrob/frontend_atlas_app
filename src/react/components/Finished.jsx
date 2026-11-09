@@ -1,6 +1,7 @@
 import { ArrowButton } from "./ArrowButton";
+import { WorldClock } from "./WorldClock.jsx";
 
-export const Finished = ({ result, score, questions, totalRounds, onRestart }) => {
+export const Finished = ({ result, score, questions, totalRounds, elapsedSeconds, onRestart }) => {
   return (
     <main className="game-container game-container--results">
       <section className="game-results" aria-label="Resultados de la expedición">
@@ -13,6 +14,7 @@ export const Finished = ({ result, score, questions, totalRounds, onRestart }) =
           </strong>
           <span>Aciertos oficiales registrados</span>
         </div>
+        <WorldClock elapsedSeconds={elapsedSeconds} variant="result" />
         <div className="game-results__history">
           {questions.map((question, index) => (
             <div className="game-results__item" key={question.country.iso_code}>

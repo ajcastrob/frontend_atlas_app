@@ -188,6 +188,102 @@
   white-space: nowrap;
 }
 
+.quiz-module__status {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* World clock ------------------------------------------------------------- */
+
+.world-clock {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-board-deep);
+  text-align: left;
+}
+
+.world-clock__face {
+  position: relative;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  flex: none;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+.world-clock__latitude,
+.world-clock__longitude {
+  position: absolute;
+  opacity: 0.55;
+}
+
+.world-clock__latitude {
+  width: 86%;
+  height: 38%;
+  border-top: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+.world-clock__longitude {
+  width: 42%;
+  height: 94%;
+  border-inline: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+.world-clock__hand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  width: 1px;
+  transform-origin: bottom center;
+}
+
+.world-clock__hand--minute {
+  height: 34%;
+  background: currentColor;
+  transform: translateX(-50%) rotate(var(--minute-angle));
+}
+
+.world-clock__hand--second {
+  height: 43%;
+  background: var(--color-brand);
+  transform: translateX(-50%) rotate(var(--second-angle));
+}
+
+.world-clock__pin {
+  z-index: 1;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-brand);
+}
+
+.world-clock__copy {
+  display: grid;
+  gap: 1px;
+  font: 500 9px/1.15 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.world-clock__copy span {
+  color: var(--color-ink-muted);
+}
+
+.world-clock__copy time {
+  color: currentColor;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
 .quiz-module__progress-bar {
   position: relative;
   height: 4px;
@@ -524,6 +620,31 @@
   text-transform: uppercase;
 }
 
+.game-results > .world-clock {
+  margin: 0 auto 34px;
+  padding: 10px 14px;
+  border-block: 1px solid rgb(255 255 255 / 0.35);
+  color: var(--color-board-ink);
+}
+
+.game-results > .world-clock .world-clock__face {
+  width: 42px;
+  height: 42px;
+}
+
+.game-results > .world-clock .world-clock__copy {
+  gap: 3px;
+}
+
+.game-results > .world-clock .world-clock__copy span {
+  color: #dbe5f8;
+}
+
+.game-results > .world-clock .world-clock__copy time {
+  color: var(--color-marker);
+  font-size: 15px;
+}
+
 .game-results__history {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -637,6 +758,11 @@
     align-items: flex-start;
     flex-direction: column;
     gap: 3px;
+  }
+
+  .quiz-module__status {
+    width: 100%;
+    justify-content: space-between;
   }
 
   .quiz-module__question {

@@ -47,6 +47,7 @@ export function useQuiz(countries) {
     result,
     restart,
     score: state.score,
+    sessionId: state.sessionId,
     selectOption,
     confirm,
   };

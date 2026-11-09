@@ -6,13 +6,15 @@ export const initialQuizState = {
   currentIndex: 0,
   score: 0,
   finished: false,
+  sessionId: 0,
 };
 
-export function createQuizState(countries) {
+export function createQuizState(countries, sessionId = 0) {
   if (!countries.length) return initialQuizState;
 
   return {
     ...initialQuizState,
+    sessionId,
     questions: makeQuestions(countries),
   };
 }
@@ -22,7 +24,7 @@ export function quizReducer(state, action) {
 
   switch (action.type) {
     case "INIT_GAME":
-      return createQuizState(action.countries);
+      return createQuizState(action.countries, state.sessionId + 1);
 
     case "SELECT_OPTION":
       if (!current || current.confirmed) return state;
@@ -76,7 +78,7 @@ export function quizReducer(state, action) {
     }
 
     case "RESTART_GAME":
-      return createQuizState(action.countries);
+      return createQuizState(action.countries, state.sessionId + 1);
 
     default:
       return state;
