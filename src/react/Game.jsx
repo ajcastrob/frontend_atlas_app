@@ -1,5 +1,7 @@
 import { Finished } from "./components/Finished.jsx";
 import { Bandera } from "./components/Bandera.jsx";
+import { Loading } from "./components/Loading.jsx";
+import { Error } from "./components/Error.jsx";
 import { QuizCountries } from "./components/QuizCountries.jsx";
 import { TOTAL_ROUNDS } from "../lib/constants.js";
 import { useCountries } from "./hooks/useCountries.js";
@@ -40,31 +42,11 @@ export default function Game() {
   });
 
   if (loading) {
-    return (
-      <div className="game-container">
-        <div className="game-loading">
-          <div className="game-loading__line" />
-          <span>Consultando archivo cartográfico...</span>
-        </div>
-      </div>
-    );
+    return <Loading />;
   }
 
   if (error) {
-    return (
-      <div className="game-container">
-        <div className="game-loading" role="alert">
-          <span>{error}</span>
-          <button
-            className="quiz-btn-primary"
-            type="button"
-            onClick={() => window.location.reload()}
-          >
-            REINTENTAR
-          </button>
-        </div>
-      </div>
-    );
+    return <Error error={error} />;
   }
 
   if (finished) {
