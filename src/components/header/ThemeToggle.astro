@@ -6,21 +6,24 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 72px;
     height: 32px;
+    width: 32px;
     padding-inline: 10px;
     border: 1px solid var(--color-ink);
     border-radius: 0;
     background: transparent;
     color: var(--color-ink);
     cursor: pointer;
-    font: 600 9px/1 var(--font-mono);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
     transition:
       background-color 0.2s ease,
       color 0.2s ease,
       transform 0.15s ease;
+  }
+
+  .theme-toggle__icon {
+    display: block;
+    font: 400 20px/1 var(--font-serif);
+    transform: translateY(-1px);
   }
 
   .theme-toggle:hover {
@@ -40,26 +43,37 @@
   @media (min-width: 768px) {
     .theme-toggle {
       height: 34px;
-      min-width: 80px;
-      font-size: 10px;
+      width: 34px;
     }
   }
 </style>
 
-<button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">
-  Tema oscuro
+<button
+  class="theme-toggle"
+  type="button"
+  data-theme-toggle
+  aria-label="Activar modo oscuro"
+  aria-pressed="false"
+  title="Activar modo oscuro"
+>
+  <span class="theme-toggle__icon" data-theme-icon aria-hidden="true">☾</span>
 </button>
 
 <script>
   const toggle = document.querySelector("[data-theme-toggle]");
+  const icon = document.querySelector("[data-theme-icon]");
 
   const renderToggle = (theme) => {
     const isDark = theme === "dark";
-    toggle.textContent = isDark ? "Tema claro" : "Tema oscuro";
+    const action = isDark ? "Activar modo claro" : "Activar modo oscuro";
+
+    icon.textContent = isDark ? "☀" : "☾";
+    toggle.setAttribute("aria-label", action);
+    toggle.setAttribute("title", action);
     toggle.setAttribute("aria-pressed", String(isDark));
   };
 
-  if (toggle) {
+  if (toggle && icon) {
     renderToggle(document.documentElement.dataset.theme || "light");
 
     toggle.addEventListener("click", () => {
