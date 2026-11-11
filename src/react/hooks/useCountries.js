@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { AuthError, fetchCountries } from "@/lib/game.js";
+import { AuthError } from "@/lib/game.js";
+import { fetchCountries } from "@/lib/fetchCountries.js";
 
 export const useCountries = () => {
   const [countries, setCountries] = useState([]);
