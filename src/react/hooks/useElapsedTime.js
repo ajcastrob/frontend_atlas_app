@@ -7,37 +7,46 @@ export function formatElapsedTime(totalSeconds) {
   return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 }
 
-export function useElapsedTime(isRunning, resetKey) {
-  const startedAtRef = useRef(null);
+export function useElapsedTime(isRunning, startedAt, finishedAt) {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  const fallbackStartRef = useRef(null);
 
   useEffect(() => {
-    startedAtRef.current = null;
-    setElapsedSeconds(0);
-  }, [resetKey]);
+    const hasStartedAt = Number.isFinite(startedAt);
+    const hasFinishedAt = Number.isFinite(finishedAt);
 
-  useEffect(() => {
+    // Partida terminada: el reloj queda congelado en la duración final.
+    if (hasStartedAt && hasFinishedAt) {
+      setElapsedSeconds(Math.max(0, Math.floor((finishedAt - startedAt) / 1000)));
+      return undefined;
+    }
+
     if (!isRunning) {
-      if (startedAtRef.current !== null) {
-        setElapsedSeconds(Math.floor((Date.now() - startedAtRef.current) / 1000));
-      }
+      setElapsedSeconds(
+        hasStartedAt ? Math.max(0, Math.floor((Date.now() - startedAt) / 1000)) : 0,
+      );
 
       return undefined;
     }
 
-    if (startedAtRef.current === null) {
-      startedAtRef.current = Date.now();
+    // Si el estado no trae marca de inicio, se usa una local como respaldo.
+    if (hasStartedAt) {
+      fallbackStartRef.current = startedAt;
+    } else if (fallbackStartRef.current === null) {
+      fallbackStartRef.current = Date.now();
     }
 
+    const base = fallbackStartRef.current;
+
     const updateElapsedTime = () => {
-      setElapsedSeconds(Math.floor((Date.now() - startedAtRef.current) / 1000));
+      setElapsedSeconds(Math.max(0, Math.floor((Date.now() - base) / 1000)));
     };
 
     updateElapsedTime();
     const intervalId = window.setInterval(updateElapsedTime, 250);
 
     return () => window.clearInterval(intervalId);
-  }, [isRunning, resetKey]);
+  }, [isRunning, startedAt, finishedAt]);
 
   return elapsedSeconds;
 }

@@ -7,14 +7,17 @@ export const initialQuizState = {
   score: 0,
   finished: false,
   sessionId: 0,
+  startedAt: null,
+  finishedAt: null,
 };
 
-export function createQuizState(countries, sessionId = 0) {
+export function createQuizState(countries, sessionId = 0, startedAt = null) {
   if (!countries.length) return initialQuizState;
 
   return {
     ...initialQuizState,
     sessionId,
+    startedAt,
     questions: makeQuestions(countries),
   };
 }
@@ -24,7 +27,10 @@ export function quizReducer(state, action) {
 
   switch (action.type) {
     case "INIT_GAME":
-      return createQuizState(action.countries, state.sessionId + 1);
+      // Invariante: una partida en curso (o restaurada) nunca se machaca.
+      if (state.questions.length) return state;
+
+      return createQuizState(action.countries, state.sessionId + 1, action.startedAt ?? null);
 
     case "SELECT_OPTION":
       if (!current || current.confirmed) return state;
@@ -73,12 +79,28 @@ export function quizReducer(state, action) {
       const isLastRound = state.currentIndex + 1 >= TOTAL_ROUNDS;
 
       return isLastRound
-        ? { ...state, finished: true }
+        ? { ...state, finished: true, finishedAt: action.at ?? null }
         : { ...state, currentIndex: state.currentIndex + 1 };
     }
 
+    case "RESTORE_GAME": {
+      const snapshot = action.state;
+
+      if (!Array.isArray(snapshot?.questions) || !snapshot.questions.length) return state;
+
+      return {
+        ...state,
+        questions: snapshot.questions,
+        currentIndex: snapshot.currentIndex,
+        score: snapshot.score,
+        finished: snapshot.finished,
+        startedAt: snapshot.startedAt ?? null,
+        finishedAt: snapshot.finishedAt ?? null,
+      };
+    }
+
     case "RESTART_GAME":
-      return createQuizState(action.countries, state.sessionId + 1);
+      return createQuizState(action.countries, state.sessionId + 1, action.startedAt ?? null);
 
     default:
       return state;

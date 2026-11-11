@@ -17,6 +17,7 @@ export default function Game() {
     current,
     currentIndex,
     finished,
+    finishedAt,
     next,
     pass,
     progress,
@@ -24,13 +25,14 @@ export default function Game() {
     result,
     restart,
     score,
-    sessionId,
     selectOption,
+    startedAt,
   } = useQuiz(countries);
 
   const elapsedSeconds = useElapsedTime(
     Boolean(current && !finished && !loading && !error),
-    sessionId,
+    startedAt,
+    finishedAt,
   );
 
   useQuizKeyboard({
@@ -62,7 +64,7 @@ export default function Game() {
     );
   }
 
-  if (!current) return null;
+  if (!current?.country) return null;
 
   const { country } = current;
 
