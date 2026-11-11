@@ -18,6 +18,19 @@ const {
     <meta name="apple-mobile-web-app-title" content="Atlas app" />
     <meta name="description" content={ description } />
     <meta name="generator" content={Astro.generator} />
+    <script is:inline>
+      try {
+        const savedTheme = localStorage.getItem("atlas.theme");
+        const theme = savedTheme === "light" || savedTheme === "dark"
+          ? savedTheme
+          : window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        document.documentElement.dataset.theme = theme;
+      } catch {
+        document.documentElement.dataset.theme = "light";
+      }
+    </script>
     <Font cssVariable="--font-display" />
     <Font cssVariable="--font-ui" preload />
     <Font cssVariable="--font-sans" preload />

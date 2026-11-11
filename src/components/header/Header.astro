@@ -2,6 +2,7 @@
 import HeaderNav from "@/components/header/HeaderNav.astro"
 import HeaderBrand from "@/components/header/HeaderBrand.astro"
 import HeaderPerfil from "@/components/header/HeaderPerfil.astro"
+import ThemeToggle from "@/components/header/ThemeToggle.astro"
 
 interface Props {
   linkLogo?: string
@@ -70,6 +71,7 @@ const {
     <HeaderBrand linkLogo={linkLogo} nameBrand={nameBrand} />
     <div class="header__actions">
       <HeaderNav actionText={actionText} actionHref={actionHref} />
+      <ThemeToggle />
       <HeaderPerfil />
     </div>
   </div>

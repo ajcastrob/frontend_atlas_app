@@ -34,6 +34,15 @@
   pointer-events: none;
 }
 
+:root[data-theme="dark"] .game-container::after {
+  top: 132px;
+  right: -4%;
+  width: min(900px, 76vw);
+  background-image: url("/assets/world-map.svg");
+  filter: none;
+  opacity: 0.13;
+}
+
 /* Navigation and map metadata --------------------------------------------- */
 
 .game-breadcrumb {
@@ -105,6 +114,11 @@
   opacity: 0.16;
   content: "";
   pointer-events: none;
+}
+
+:root[data-theme="dark"] .vexillo-plate::before {
+  background-image: url("/assets/world-map.svg");
+  opacity: 0.1;
 }
 
 .vexillo-plate__header {
@@ -200,7 +214,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: var(--color-board-deep);
+  color: var(--color-clock);
   text-align: left;
 }
 
@@ -214,6 +228,7 @@
   overflow: hidden;
   border: 1px solid currentColor;
   border-radius: 50%;
+  background: var(--color-clock-surface);
 }
 
 .world-clock__latitude,
@@ -284,6 +299,26 @@
   letter-spacing: 0.12em;
 }
 
+:root[data-theme="dark"] .world-clock {
+  gap: 10px;
+  padding: 4px 8px 4px 4px;
+  border: 1px solid rgb(237 244 238 / 0.2);
+  background: rgb(16 42 69 / 0.52);
+}
+
+:root[data-theme="dark"] .world-clock__face {
+  border-color: rgb(237 244 238 / 0.78);
+}
+
+:root[data-theme="dark"] .world-clock__copy span {
+  color: rgb(237 244 238 / 0.68);
+}
+
+:root[data-theme="dark"] .world-clock__copy time {
+  color: var(--color-marker);
+  font-size: 12px;
+}
+
 .quiz-module__progress-bar {
   position: relative;
   height: 4px;
@@ -318,10 +353,38 @@
 .quiz-module__question strong {
   max-width: 10ch;
   margin-top: 8px;
-  color: var(--color-board-deep);
+  color: var(--color-question);
   font: 500 clamp(54px, 6.2vw, 80px)/0.98 var(--font-serif);
   letter-spacing: -0.035em;
   overflow-wrap: anywhere;
+}
+
+:root[data-theme="dark"] .quiz-module__question {
+  padding-left: 20px;
+  border-left: 2px solid var(--color-brand);
+}
+
+:root[data-theme="dark"] .quiz-module__question span {
+  color: rgb(237 244 238 / 0.72);
+}
+
+:root[data-theme="dark"] .quiz-module__question strong {
+  max-width: 11ch;
+  font-weight: 600;
+  letter-spacing: -0.028em;
+}
+
+:root[data-theme="dark"] .quiz-option__content span {
+  font-size: 21px;
+  line-height: 1.18;
+}
+
+:root[data-theme="dark"] .quiz-option__content > b {
+  color: var(--color-brand);
+}
+
+:root[data-theme="dark"] .quiz-option.is-selected .quiz-option__content > b {
+  color: var(--color-board-deep);
 }
 
 .quiz-options {
@@ -350,7 +413,7 @@
 
 .quiz-option:hover:not(:disabled):not(.is-selected) {
   border-color: var(--color-ink);
-  background: #fff;
+  background: var(--color-panel-hover);
   transform: translateY(-2px);
 }
 
@@ -365,19 +428,19 @@
 .quiz-option.is-selected {
   border-color: var(--color-board-deep);
   background: var(--color-board);
-  color: #fff;
+  color: var(--color-board-ink);
 }
 
 .quiz-option.is-correct {
-  border-color: #166534;
-  background: #eaf6ed;
-  color: #14532d;
+  border-color: var(--color-success);
+  background: var(--color-success-surface);
+  color: var(--color-success);
 }
 
 .quiz-option.is-wrong {
-  border-color: #991b1b;
-  background: #fff1f1;
-  color: #7f1d1d;
+  border-color: var(--color-danger);
+  background: var(--color-danger-surface);
+  color: var(--color-danger);
 }
 
 .quiz-option__content {
@@ -407,7 +470,7 @@
 .quiz-option.is-correct .quiz-option__content > b,
 .quiz-option.is-wrong .quiz-option__content > b {
   background: currentColor;
-  color: #fff;
+  color: var(--color-on-ink);
 }
 
 .quiz-option__content span {
@@ -436,15 +499,15 @@
 }
 
 .quiz-option.is-correct > i {
-  border-color: #166534;
-  background: #166534;
-  color: #fff;
+  border-color: var(--color-success);
+  background: var(--color-success);
+  color: var(--color-on-ink);
 }
 
 .quiz-option.is-wrong > i {
-  border-color: #991b1b;
-  background: #991b1b;
-  color: #fff;
+  border-color: var(--color-danger);
+  background: var(--color-danger);
+  color: var(--color-on-ink);
 }
 
 /* Actions and feedback ----------------------------------------------------- */
@@ -467,11 +530,11 @@
 }
 
 .is-good {
-  color: #166534 !important;
+  color: var(--color-success) !important;
 }
 
 .is-bad {
-  color: #991b1b !important;
+  color: var(--color-danger) !important;
 }
 
 .is-pass {
@@ -511,14 +574,14 @@
   min-height: 48px;
   padding: 0 26px;
   background: var(--color-board);
-  color: #fff;
+  color: var(--color-board-ink);
   transition:
     background-color 0.18s ease,
     transform 0.18s ease;
 }
 
 .quiz-btn-primary:disabled {
-  background: #d7d8dc;
+  background: var(--color-border-subtle);
   color: var(--color-ink-muted);
   cursor: not-allowed;
 }
