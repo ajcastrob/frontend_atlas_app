@@ -6,6 +6,7 @@
   --color-panel-hover: #ffffff;
   --color-ink: #161714;
   --color-ink-muted: #5e625b;
+  --color-ink-subtle: #666b64;
   --color-border: #b9beb6;
   --color-border-subtle: #d9dcd5;
   --color-brand: #1748d4;
@@ -26,8 +27,21 @@
 
   --font-serif: var(--font-display, "Playfair Display", Georgia, serif);
   --font-mono: var(--font-ui, "JetBrains Mono", ui-monospace, monospace);
-  --font-sans: var(--font-sans, Inter, system-ui, sans-serif);
-  --font-body: var(--font-sans);
+  /* `--font-sans` lo define Astro (Font cssVariable) en :root; no se
+     re-declara aquí para evitar un ciclo de var() que lo invalidaría.
+     `--font-body` es el alias seguro con fallback. */
+  --font-body: var(--font-sans, Inter, system-ui, sans-serif);
+
+  /* Escala tipográfica — 3 niveles */
+  --text-size-large: clamp(2.75rem, 1.6rem + 3.8vw, 3.75rem); /* 44 → 60 px */
+  --text-size-medium: clamp(1.5rem, 1.42rem + 0.32vw, 1.75rem); /* 24 → 28 px */
+  --text-size-small: clamp(1rem, 0.96rem + 0.15vw, 1.0625rem); /* 16 → 17 px */
+
+  --tracking-display: -0.035em;
+  --tracking-display-tight: -0.045em;
+  --tracking-medium: -0.025em;
+  --tracking-caps: 0.08em;
+  --tracking-caps-wide: 0.12em;
 
   --header-height: 68px;
   --header-max-width: 1360px;
@@ -52,6 +66,7 @@
   --color-panel-hover: #26342e;
   --color-ink: #edf2e9;
   --color-ink-muted: #b7c1b6;
+  --color-ink-subtle: #9aa79c;
   --color-border: #68746b;
   --color-border-subtle: #34423a;
   --color-brand: #83a8ff;
@@ -91,8 +106,26 @@ body {
   background: var(--color-bg);
   color: var(--color-ink);
   font-family: var(--font-body);
+  font-size: var(--text-size-small);
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Escala tipográfica global — 3 niveles */
+h1 {
+  font-size: var(--text-size-large);
+}
+
+h2,
+h3 {
+  font-size: var(--text-size-medium);
+}
+
+h4,
+h5,
+h6 {
+  font-size: var(--text-size-small);
 }
 
 body::selection {

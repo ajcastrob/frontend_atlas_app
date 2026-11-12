@@ -28,10 +28,10 @@ export const QuizCountries = ({
         <div style={{ width: `${progress}%` }} />
       </div>
 
-      <div className="quiz-module__question">
+      <h1 className="quiz-module__question">
         <span>¿Cuál es la capital de</span>
         <strong>{country.name}?</strong>
-      </div>
+      </h1>
 
       <div className="quiz-options" role="radiogroup" aria-label="Opciones de capital">
         {current.options.map((option, index) => {
@@ -68,11 +68,28 @@ export const QuizCountries = ({
           <p
             className={`quiz-feedback ${current.isCorrect ? "is-good" : current.passed ? "is-pass" : "is-bad"}`}
           >
-            {current.isCorrect
-              ? "● ACIERTO REGISTRADO (+1)"
-              : current.passed
-                ? "↷ RONDA OMITIDA (0)"
-                : `× CAPITAL CORRECTA: ${country.capital.toUpperCase()}`}
+            {current.isCorrect ? (
+              <>
+                <span className="quiz-feedback__glyph" aria-hidden="true">
+                  ●
+                </span>{" "}
+                ACIERTO REGISTRADO (+1)
+              </>
+            ) : current.passed ? (
+              <>
+                <span className="quiz-feedback__glyph" aria-hidden="true">
+                  ↷
+                </span>{" "}
+                RONDA OMITIDA (0)
+              </>
+            ) : (
+              <>
+                <span className="quiz-feedback__glyph" aria-hidden="true">
+                  ×
+                </span>{" "}
+                CAPITAL CORRECTA: {country.capital.toUpperCase()}
+              </>
+            )}
           </p>
         )}
 

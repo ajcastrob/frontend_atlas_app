@@ -6,14 +6,14 @@ export const Finished = ({ result, score, questions, totalRounds, elapsedSeconds
     <main className="game-container game-container--results">
       <section className="game-results" aria-label="Resultados de la expedición">
         <span className="game-results__badge">EXPEDICIÓN FINALIZADA</span>
-        <h1>{result.title}</h1>
-        <p>{result.summary}</p>
         <div className="game-results__score-box">
-          <strong>
+          <span className="game-results__score-label">{result.title}</span>
+          <h1 aria-label={`${score} / ${totalRounds}. Expedición finalizada`}>
             {score} / {totalRounds}
-          </strong>
-          <span>Aciertos oficiales registrados</span>
+          </h1>
+          <span className="game-results__score-note">Aciertos oficiales registrados</span>
         </div>
+        <p>{result.summary}</p>
         <WorldClock elapsedSeconds={elapsedSeconds} variant="result" />
         <div className="game-results__history">
           {questions.map((question, index) => (

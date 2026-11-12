@@ -48,6 +48,19 @@ const {
   gap: 8px;
 }
 
+/* Viewports estrechos: el nav con tipografía grande necesita menos gutter
+   y menos separación para no desbordar a 375px. */
+@media (max-width: 480px) {
+  .header__container {
+    gap: 6px;
+    padding-inline: 8px;
+  }
+
+  .header__actions {
+    gap: 4px;
+  }
+}
+
 /* Foco accesible global para elementos interactivos en el header */
 .header :global(:is(a, button):focus-visible) {
   outline: 2px solid var(--color-accent);

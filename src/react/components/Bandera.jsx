@@ -12,7 +12,7 @@ export const Bandera = ({ country }) => {
         <img src={flagUrl} alt={`Pabellón oficial de ${country.name}`} />
       </div>
       <div className="vexillo-plate__footer">
-        <h2>{country.name}</h2>
+        <p className="vexillo-plate__name">{country.name}</p>
         <span>{country.region.toUpperCase()}</span>
       </div>
     </aside>

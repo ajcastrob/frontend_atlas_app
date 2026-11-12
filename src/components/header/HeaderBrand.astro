@@ -21,6 +21,18 @@ const {
   transition: color 0.2s ease;
 }
 
+/* Viewports estrechos:Reduce el hueco marca-wordmark para no desbordar */
+@media (max-width: 480px) {
+  .header__brand {
+    gap: 6px;
+  }
+
+  /* El enlace conserva el nombre accesible "Atlas - Inicio" via aria-label */
+  .header__title {
+    display: none;
+  }
+}
+
 .header__brand:hover {
   color: var(--color-brand);
 }
@@ -34,10 +46,10 @@ const {
 
 .header__title {
   font-family: var(--font-body);
-  font-size: 12px;
+  font-size: var(--text-size-small);
   font-weight: 700;
-  line-height: 16px;
-  letter-spacing: 1.68px;
+  line-height: 1.4;
+  letter-spacing: 0.1em; /* wordmark calibrado a --text-size-small */
   text-transform: uppercase;
   white-space: nowrap;
 }

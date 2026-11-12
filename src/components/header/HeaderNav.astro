@@ -27,21 +27,28 @@ const {
   list-style: none;
 }
 
+/* Viewports estrechos:Reduce el padding del link para que el nav quepa a 375px */
+@media (max-width: 480px) {
+  .header__link {
+    padding-inline: 8px;
+  }
+}
+
 .header__link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 32px;
+  min-height: 36px;
   padding-inline: 12px;
   border: 1px solid var(--color-ink);
   border-radius: 0;
   background: transparent;
   color: var(--color-ink);
   font-family: var(--font-body);
-  font-size: 11px;
+  font-size: var(--text-size-small);
   font-weight: 600;
-  line-height: 14px;
-  letter-spacing: 0.55px;
+  line-height: 1.4;
+  letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
@@ -69,12 +76,9 @@ const {
 /* Escritorio */
 @media (min-width: 768px) {
   .header__link {
-    height: 34px;
+    min-height: 36px;
     padding: 8px 16px;
     background: transparent;
-    font-size: 12px;
-    line-height: 16px;
-    letter-spacing: 0.6px;
   }
 
   .header__link:hover {
